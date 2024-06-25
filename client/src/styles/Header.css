@@ -1,0 +1,10 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:where(.css-dev-only-do-not-override-m4timi).ant-layout-header {
+    padding: 0;
+    height: 120px;
+}
