@@ -47,6 +47,8 @@ const resolvers = {
                 _id: user._id,
             });
 
+            await user.save();
+
             return {
                 token,
                 user,
