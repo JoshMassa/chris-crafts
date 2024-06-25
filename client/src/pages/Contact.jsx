@@ -5,6 +5,7 @@ import { validateEmail } from '../../../server/utils/helpers';
 function Contact() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [messageText, setMessageText] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -17,6 +18,8 @@ function Contact() {
       setName(value);
     } else if (name === 'email') {
       setEmail(value);
+    } else if (name === 'phone') {
+        setPhone(value);
     } else if (name === 'message') {
       setMessageText(value);
     }
@@ -37,6 +40,7 @@ function Contact() {
     // If the form submission was successful, reset the fields to an empty string
     setName('');
     setEmail('');
+    setPhone('');
     setMessageText('');
     setErrorMessage('');
     form.resetFields();
@@ -62,7 +66,7 @@ function Contact() {
     <div style={{ maxWidth: '600px', margin: '0 auto', marginTop: '10rem'}}>
       <h1 style={{ textAlign: 'center', marginBottom: 20 }}>Contact Me</h1>
       <p style={{ textAlign: 'center', marginBottom: 20 }}>
-        Please leave your name, email, and a message detailing the custom leatherwork you're looking for. I will get back to you with more information as soon as possible!
+        Please leave your name, email, phone number (optional), and a message detailing the custom leatherwork you're looking for. I will get back to you with more information as soon as possible!
       </p>
       <Form
         form={form}
@@ -93,6 +97,18 @@ function Contact() {
           <Input
             name="email"
             value={email}
+            onChange={handleInputChange}
+            onBlur={handleInputBlur}
+          />
+        </Form.Item>
+        <Form.Item
+          label="Phone (optional)"
+          name="phone"
+          rules={[{ required: false }]}
+        >
+          <Input
+            name="phone"
+            value={phone}
             onChange={handleInputChange}
             onBlur={handleInputBlur}
           />
