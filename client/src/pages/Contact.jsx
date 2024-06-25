@@ -102,7 +102,7 @@ function Contact() {
           />
         </Form.Item>
         <Form.Item
-          label="Phone (optional)"
+          label="Phone (optional - for texting preferred)"
           name="phone"
           rules={[{ required: false }]}
         >

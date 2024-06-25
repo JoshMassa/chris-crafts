@@ -5,6 +5,8 @@ import { typeDefs, resolvers } from './schemas/index.js';
 import path from 'path';
 import { connectToDatabase } from './config/connection.js';
 import auth from './utils/auth.js';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 async function startApolloServer() {
     try {
@@ -26,6 +28,7 @@ async function startApolloServer() {
         app.use('/graphql', expressMiddleware(server, { context: auth.authMiddleware }));
         
         if (process.env.NODE_ENV === 'production') {
+            const __dirname = dirname(fileURLToPath(import.meta.url));
             app.use(express.static(path.join(__dirname, '../client/dist')));
         
             app.get('*', (req, res) => {
