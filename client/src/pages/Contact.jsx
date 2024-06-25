@@ -63,7 +63,7 @@ function Contact() {
   };
 
   return (
-    <div style={{ maxWidth: '600px', margin: '0 auto', marginTop: '10rem'}}>
+    <div style={{ maxWidth: '600px', margin: '0 auto', marginTop: '6rem'}}>
       <h1 style={{ textAlign: 'center', marginBottom: 20 }}>Contact Me</h1>
       <p style={{ textAlign: 'center', marginBottom: 20 }}>
         Please leave your name, email, phone number (optional), and a message detailing the custom leatherwork you're looking for. I will get back to you with more information as soon as possible!
