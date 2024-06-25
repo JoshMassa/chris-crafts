@@ -4,6 +4,7 @@ import {
   SignatureOutlined,
   LoginOutlined,
   SettingOutlined,
+  ContactsOutlined
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
@@ -26,12 +27,17 @@ function Header() {
 
   const itemsOne = [
     {
-      label: <a href='/' onClick={handleHomeClick}><img src={logo} style={{paddingTop: 30, marginLeft: 10}} /></a>,
+      label: <a href='/' onClick={handleHomeClick}><img src={logo} style={{paddingTop: 15, marginLeft: 10}} /></a>,
       key: 'homePage',
     },
   ].filter(Boolean); // Filter out any falsey values (e.g., when isLoggedIn is false)
 
   const itemsTwo = [
+      {
+        label: <Link to='/contact'>Contact</Link>,
+        key: 'contact',
+        icon: <ContactsOutlined />
+      },
     !isLoggedIn && {
         label: <Link to='/signup'>Sign Up</Link>,
         key: 'signUp',
@@ -76,7 +82,7 @@ function Header() {
         defaultSelectedKeys={['current']}
         items={itemsTwo}
         style={{
-            paddingRight: '5rem',
+            paddingRight: '10rem',
             minWidth: 0,
             display: 'flex',
             alignItems: 'center',

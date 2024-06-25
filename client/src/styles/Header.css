@@ -7,4 +7,5 @@
 :where(.css-dev-only-do-not-override-m4timi).ant-layout-header {
     padding: 0;
     height: 120px;
+    line-height: 3;
 }

@@ -5,6 +5,7 @@ import { AuthProvider } from './context/AuthContext.jsx';
 import HomePage from './pages/HomePage.jsx'
 import Login from './pages/Login.jsx'
 import Signup from './pages/Signup.jsx'
+import Contact from './pages/Contact.jsx'
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />
+      },
+      {
+        path: '/contact',
+        element: <Contact />
       },
       {
         path: '/login',
