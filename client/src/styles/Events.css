@@ -22,6 +22,10 @@
     text-align: center;
 }
 
+.event-title {
+    padding-bottom: 5px;
+}
+
 .event-date {
     color: #8c8c8c;
     font-weight: bold;
