@@ -6,8 +6,6 @@ import HomePage from './pages/HomePage.jsx';
 import Login from './pages/Login.jsx';
 import Signup from './pages/Signup.jsx';
 import Contact from './pages/Contact.jsx';
-import Admin from './components/Admin.jsx';
-import Events from './components/Events.jsx';
 import Dashboard from './pages/Dashboard.jsx';
 
 const router = createBrowserRouter([
