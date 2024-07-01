@@ -6,7 +6,7 @@ dotenv.config();
 
 // set token secret and expiration date
 const secret = process.env.JWT_SECRET;
-const expiration = '15m';
+const expiration = '60m';
 
 export default {
   AuthenticationError: new GraphQLError('Could not authenticate user.', {

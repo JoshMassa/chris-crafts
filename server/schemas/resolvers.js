@@ -1,12 +1,16 @@
 import User from '../models/User.js';
+import Event from '../models/Event.js';
 import { AuthenticationError } from 'apollo-server-express';
 import bcrypt from 'bcrypt';
 import auth from '../utils/auth.js';
 
 const resolvers = {
     Query: {
+        events: async () => {
+            return await Event.find({});
+        },
         user: async (_, { id }) => {
-            const user = await UserActivation.findById(id);
+            const user = await User.findById(id);
             if (!user) {
                 throw new Error('No user found with that ID');
             }
@@ -14,6 +18,7 @@ const resolvers = {
                 _id: user._id,
                 username: user.username,
                 email: user.email,
+                isAdmin: user.isAdmin,
             }
         },
         users: async () => {
@@ -23,11 +28,17 @@ const resolvers = {
                     _id: user._id,
                     username: user.username,
                     email: user.email,
+                    isAdmin: user.isAdmin,
                 };
             });
         }
     },
     Mutation: {
+        addEvent: async (_, { title, date, location, time, description }) => {
+            const newEvent = new Event({ title, date, location, time, description });
+            await newEvent.save();
+            return newEvent;
+        },
         login: async (_, { email, password }) => {
             const user = await User.findOne({ email });
 
@@ -41,14 +52,7 @@ const resolvers = {
                 throw new AuthenticationError('Incorrect email or password');
             }
 
-            const token = auth.signToken({
-                username: user.username,
-                email: user.email,
-                _id: user._id,
-            });
-
-            await user.save();
-
+            const token = auth.signToken(user);
             return {
                 token,
                 user,
@@ -61,6 +65,9 @@ const resolvers = {
                     { new: true }
                 )
             }
+        },
+        setAdminStatus: async (_, { id, isAdmin }) => {
+            return await User.findByIdAndUpdate(id, { isAdmin }, { new: true });
         },
         signup: async (_, { username, email, password }, context) => {
             const emailExists = await User.findOne({ email });
@@ -78,7 +85,10 @@ const resolvers = {
                 username,
                 email,
                 password,
+                isAdmin: false,
             });
+
+            await user.save();
 
             const token = auth.signToken(user);
 
@@ -86,7 +96,16 @@ const resolvers = {
                 token,
                 user,
             };
-        }
+        },
+        updateUser: async (_, { id, input }) => {
+            try {
+                const updatedUser = await User.findByIdAndUpdate(id, input, { new: true });
+                return updatedUser;
+            } catch (error) {
+                console.error(err);
+                throw new Error('Failed to update user');
+            }
+        },
     }
 }
 

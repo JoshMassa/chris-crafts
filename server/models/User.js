@@ -15,6 +15,25 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true,
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false,
+    },
+    firstName: {
+        type: String,
+    },
+    lastName: {
+        type: String,
+    },
+    city: {
+        type: String,
+    },
+    state: {
+        type: String,
+    },
+    country: {
+        type: String,
     }
 });
 

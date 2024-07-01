@@ -22,12 +22,11 @@ function Header() {
   const handleHomeClick = (e) => {
     e.preventDefault();
     navigate('/');
-    window.location.reload();
   };
 
   const itemsOne = [
     {
-      label: <a href='/' onClick={handleHomeClick}><img src={logo} style={{paddingTop: 15, marginLeft: 10}} /></a>,
+      label: <a href='/' onClick={handleHomeClick}><img src={logo} style={{paddingTop: 15, marginLeft: 30}} /></a>,
       key: 'homePage',
     },
   ].filter(Boolean); // Filter out any falsey values (e.g., when isLoggedIn is false)
@@ -57,7 +56,7 @@ function Header() {
         label: <Logout />,
         key: 'logout',
       },
-  ]
+  ].filter(Boolean);
 
   return (
     <AntHeader
