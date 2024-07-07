@@ -1,33 +1,34 @@
 import React from 'react';
+import { useQuery } from '@apollo/client';
 import Product from '../components/Product.jsx';
 import { Row, Col } from 'antd';
-import bagOne from '../assets/images/bag1.jpg';
-import bagTwo from '../assets/images/bag2.jpg';
-import bagThree from '../assets/images/bag3.jpg';
-import bagFour from '../assets/images/bag4.jpg';
-import bagFive from '../assets/images/bag5.jpg';
-import bagSix from '../assets/images/bag6.jpg';
-
-const products = [
-    { title: 'Bag 1', imageUrl: bagOne },
-    { title: 'Bag 2', imageUrl: bagTwo },
-    { title: 'Bag 3', imageUrl: bagThree },
-    { title: 'Bag 4', imageUrl: bagFour },
-    { title: 'Bag 5', imageUrl: bagFive },
-    { title: 'Bag 6', imageUrl: bagSix },
-];
+import { GET_PRODUCTS } from '../utils/queries.js';
 
 function HomePage() {
+    const { loading, error, data } = useQuery(GET_PRODUCTS);
+    
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error.message}</p>;
 
+    const products = data.products;
 
     return (
-        <Row gutter={[16, 16]}>
-            {products.map((product, index) => (
-                <Col key={index} xs={24} sm={12} md={8}>
-                    <Product title={product.title} imageUrl={product.imageUrl} />
-                </Col>
-            ))}
-        </Row>
+        <div>
+            <h1 style={{textAlign: 'center', margin: '25px', color: '#134074'}}>Thank you for visiting Chris' Crafts</h1>
+            <h3 style={{textAlign: 'center', margin: '25px', color: '#134074'}}>Please take a look at our current inventory</h3>
+            <Row gutter={[16, 16]}>
+                {products.map((product, index) => (
+                    <Col key={index} xs={24} sm={12} md={8}>
+                        <Product 
+                            title={product.title}
+                            image={product.image}
+                            price={product.price}
+                            description={product.description}
+                        />
+                    </Col>
+                ))}
+            </Row>
+        </div>
     );
 }
 

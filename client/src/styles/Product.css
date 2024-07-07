@@ -1,9 +1,27 @@
-.product-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-    width: 80%;
-    margin-bottom: 16px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+.product-card {
+    width: 95%;
+    height: 700px;
+    text-align: center;
+    margin-left: 2%;
+    margin-bottom: 5%;
+}
+
+.product-card p {
+    margin-bottom: 10px;
+}
+
+.product-card img {
+    height: 550px;
+    object-fit: cover;
+}
+
+.ant-row.css-dev-only-do-not-override-m4timi {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}

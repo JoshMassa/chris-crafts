@@ -1,5 +1,6 @@
 import User from '../models/User.js';
 import Event from '../models/Event.js';
+import Product from '../models/Product.js';
 import { AuthenticationError } from 'apollo-server-express';
 import bcrypt from 'bcrypt';
 import auth from '../utils/auth.js';
@@ -8,6 +9,9 @@ const resolvers = {
     Query: {
         events: async () => {
             return await Event.find({});
+        },
+        products: async () => {
+            return await Product.find({});
         },
         user: async (_, { id }) => {
             const user = await User.findById(id);
@@ -38,6 +42,18 @@ const resolvers = {
             const newEvent = new Event({ title, date, location, time, description });
             await newEvent.save();
             return newEvent;
+        },
+        addProduct: async (_, { title, image, price, description }) => {
+            try {
+                console.log('Received data for new product:', { title, image, price, description });
+                const newProduct = new Product({ title, image, price, description });
+                await newProduct.save();
+                console.log('Product saved:', newProduct)
+                return newProduct;
+            } catch (error) {
+                console.error('Failed to add product:', error);
+                throw new Error('Failed to add product');
+            }
         },
         login: async (_, { email, password }) => {
             const user = await User.findOne({ email });

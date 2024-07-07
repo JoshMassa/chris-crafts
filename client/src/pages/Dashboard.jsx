@@ -89,16 +89,16 @@ function Dashboard() {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Content style={{ padding: '24px' }}>
-        <div>
-          <Row gutter={[16, 16]} justify='center'>
-            <Col span={14}>
+        <div className='container-fluid' style={{ width: '100%' }}>
+          <Row gutter={[16, 16]} justify='space-around'>
+            <Col span={16}>
               <Card
                 className="card-profile shadow"
                 style={{ borderRadius: '10px' }}
               >
                 <Col style={{textAlign: 'center'}}>
                     <Text className="centered" style={{ fontSize: '30px', padding: '24px' }}>{firstName} {lastName}</Text>
-                  </Col>
+                </Col>
                 <Card.Meta
                   description={
                     <Col className="" style={{textAlign: 'center'}}>
@@ -109,15 +109,13 @@ function Dashboard() {
                   }
                 />
               </Card>
-            </Col>
             
-            <Row gutter={[16, 16]} justify="space-around">
-            <Col xl={22} md={24}>
               <Card
                 title="My account"
                 className=""
                 bordered={false}
                 extra={<Button onClick={handleSave}>Save</Button>}
+                style={{ marginTop: '20px'}}
               >
                 <Form>
                   <Text className="heading-small text-muted mb-4 h6">User information</Text>
@@ -189,13 +187,8 @@ function Dashboard() {
                 </Form>
               </Card>
             </Col>
-            </Row>
           {isAdmin && (
-            <Col xl={10} md={24}>
-              <Card>
-                <Admin />
-              </Card>
-            </Col>
+            <Admin />
           )}
           </Row>
         </div>

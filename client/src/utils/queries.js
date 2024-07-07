@@ -13,6 +13,18 @@ export const GET_EVENTS = gql`
   }
 `;
 
+export const GET_PRODUCTS = gql`
+  query GetProducts {
+    products {
+      id
+      title
+      image
+      price
+      description
+    }
+  }
+`;
+
 export const GET_USER = gql`
   query GetUser($id: ID!) {
     user(id: $id) {

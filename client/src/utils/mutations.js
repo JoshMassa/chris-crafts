@@ -13,6 +13,18 @@ export const ADD_EVENT = gql`
   }
 `;
 
+export const ADD_PRODUCT = gql`
+  mutation addProduct($title: String!, $image: String!, $price: Float!, $description: String!) {
+    addProduct(title: $title, image: $image, price: $price, description: $description) {
+      id
+      title
+      image
+      price
+      description
+    }
+  }
+`;
+
 export const LOGIN = gql`
   mutation Login($email: String!, $password: String!) {
     login(email: $email, password: $password) {

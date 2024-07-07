@@ -1,12 +1,20 @@
 import { gql } from 'graphql-tag';
 
 const typeDefs = gql`
-    type Event {
+type Event {
     id: ID!
     title: String!
     date: String!
     location: String!
     time: String!
+    description: String!
+}
+
+type Product {
+    id: ID!
+    title: String!
+    image: String!
+    price: Float!
     description: String!
 }
 
@@ -37,12 +45,14 @@ input UserUpdateInput {
 
 type Query {
     events: [Event]
+    products: [Product]
     user(id: ID!): User
     users: [User]
 }
 
 type Mutation {
     addEvent(title: String!, date: String!, location: String!, time: String!, description: String!): Event
+    addProduct(title: String!, image: String!, price: Float!, description: String!): Product
     login(email: String!, password: String!): Auth
     logout: User
     signup(username: String!, email: String!, password: String!): Auth!
