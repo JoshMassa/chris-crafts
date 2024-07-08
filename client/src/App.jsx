@@ -8,7 +8,7 @@ import Header from './components/Header';
 import Events from './components/Events';
 
 const httpLink = createHttpLink({
-  uri: 'https://chris-crafts.onrender.com' || 'http://localhost:3000/graphql'
+  uri: 'https://chris-crafts.onrender.com/graphql' || 'http://localhost:3000/graphql'
 });
 
 const authLink = setContext((_, { headers }) => {
