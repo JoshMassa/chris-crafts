@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { ApolloProvider, InMemoryCache, ApolloClient, createHttpLink } from '@apollo/client'
 import { Outlet } from 'react-router-dom';
 import { Layout } from 'antd';
@@ -8,7 +7,9 @@ import Header from './components/Header';
 import Events from './components/Events';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3000/graphql'
+  uri: import.meta.env.MODE === 'development'
+  ? 'http://localhost:3000/graphql'
+  : 'https://chris-crafts.onrender.com/graphql'
 });
 
 const authLink = setContext((_, { headers }) => {

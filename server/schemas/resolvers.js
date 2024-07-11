@@ -22,6 +22,11 @@ const resolvers = {
                 _id: user._id,
                 username: user.username,
                 email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                city: user.city,
+                state: user.state,
+                country: user.country,
                 isAdmin: user.isAdmin,
             }
         },
@@ -32,6 +37,11 @@ const resolvers = {
                     _id: user._id,
                     username: user.username,
                     email: user.email,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    city: user.city,
+                    state: user.state,
+                    country: user.country,
                     isAdmin: user.isAdmin,
                 };
             });

@@ -41,6 +41,7 @@ input UserUpdateInput {
     city: String
     state: String
     country: String
+    isAdmin: Boolean
 }
 
 type Query {

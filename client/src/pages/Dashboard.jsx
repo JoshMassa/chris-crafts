@@ -15,7 +15,6 @@ function Dashboard() {
   const userId = decoded._id;
   const usernames = decoded.username;
   const navigate = useNavigate();
-
   const [hasRedirected, setHasRedirected] = useState(false);
 
   useEffect(() => {
@@ -25,10 +24,6 @@ function Dashboard() {
     }
   }, [navigate, decoded, hasRedirected, usernames]);
 
-  const currentUser = AuthService.getProfile();
-  console.log('userId:', userId);
-  console.log('currentUser:', currentUser);
-
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [city, setCity] = useState('');
@@ -36,7 +31,9 @@ function Dashboard() {
   const [country, setCountry] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const { data, loading, error } = useQuery(GET_USER, { variables: { id: userId } });
+  const { data, loading, error } = useQuery(GET_USER, { 
+    variables: { id: userId },
+  });
   const [updateUser] = useMutation(UPDATE_USER);
 
   useEffect(() => {
@@ -48,7 +45,7 @@ function Dashboard() {
       setCountry(data.user.country || '');
       setIsAdmin(data.user.isAdmin || false);
     }
-  }, [data, currentUser._id]);
+  }, [data, userId]);
   
   const handleSave = async () => {
     const updatedUserData = {
@@ -57,6 +54,7 @@ function Dashboard() {
       city,
       state,
       country,
+      isAdmin
     };
     
     console.log('User information saved:', updatedUserData);
@@ -70,6 +68,7 @@ function Dashboard() {
       });
 
       if (data && data.updateUser) {
+        console.log('Updated user data:', data.updateUser)
         setFirstName(data.updateUser.firstName || '');
         setLastName(data.updateUser.lastName || '');
         setCity(data.updateUser.city || '');
@@ -77,10 +76,17 @@ function Dashboard() {
         setCountry(data.updateUser.country || '');
         setIsAdmin(data.updateUser.isAdmin || false);
       }
-      console.log('user data to save:', data)
     } catch (error) {
       console.error('Error saving user data:', error);
     }
+  };
+
+  const formatAddress = (city, state, country) => {
+    let address = '';
+    if (city) address += city;
+    if (state) address += city ? `, ${state}` : state;
+    if (country) address += (city || state) ? ` - ${country}` : country;
+    return address;
   };
 
   if (loading) return <p>Loading...</p>;
@@ -103,7 +109,7 @@ function Dashboard() {
                   description={
                     <Col className="" style={{textAlign: 'center'}}>
                       <Col className="">
-                        <Text className=""style={{fontWeight: '600', textAlign: 'center'}}>📍 {city} {state} {country} </Text>
+                        <Text className=""style={{fontWeight: '600', textAlign: 'center'}}>📍 {formatAddress(city, state, country)} </Text>
                       </Col>
                     </Col>
                   }
