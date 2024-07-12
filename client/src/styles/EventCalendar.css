@@ -1,0 +1,25 @@
+.ant-radio-button-wrapper:last-child {
+    margin-right: 10px;
+}
+
+.events {
+    text-align: center;
+    font-size: 10px;
+}
+
+.ant-picker-calendar-date-content {
+    min-height: 190px;
+}
+
+#time {
+    color: rgb(7, 168, 7);
+    font-weight: 900;
+}
+
+#description {
+    font-weight: 600;
+}
+
+.ant-picker-calendar {
+    margin-bottom: 20px;
+}

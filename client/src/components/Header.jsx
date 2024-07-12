@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import {
-  HomeOutlined,
   SignatureOutlined,
   LoginOutlined,
   SettingOutlined,
-  ContactsOutlined
+  ContactsOutlined,
+  CalendarOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
@@ -32,6 +32,11 @@ function Header() {
   ].filter(Boolean); // Filter out any falsey values (e.g., when isLoggedIn is false)
 
   const itemsTwo = [
+      {
+        label: <Link to='/event-calendar'>Event Calendar</Link>,
+        key: 'eventCalendar',
+        icon: <CalendarOutlined />
+      },
       {
         label: <Link to='/contact'>Contact</Link>,
         key: 'contact',
