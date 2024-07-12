@@ -16,7 +16,6 @@ const Admin = () => {
       await addEvent({ variables: values });
       message.success('Event added successfully!');
       formEvent.resetFields();
-      refetch();
     } catch (error) {
       message.error('Failed to add event');
     }
