@@ -15,12 +15,15 @@ const Events = () => {
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
 
+  // Sorts events by date in descending order
+  const sortedEvents = [...data.events].sort((a, b) => new Date(b.date) - new Date(a.date));
+
   return (
     <Sider width={300} className="aside">
       <Title level={3} className="aside-title">Upcoming Events</Title>
       <List
         itemLayout="horizontal"
-        dataSource={data.events}
+        dataSource={sortedEvents}
         renderItem={item => (
           <List.Item>
             <Card className="event-card">
