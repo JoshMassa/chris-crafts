@@ -5,7 +5,6 @@ import { Form, Checkbox, Input, Button, Typography, Row, Col, ConfigProvider } f
 import AuthService from "../utils/auth";
 import { LOGIN } from "../utils/mutations";
 import AuthContext from "../context/AuthContext";
-import '../styles/Login.css';
 
 const { Title } = Typography;
 

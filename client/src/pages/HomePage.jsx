@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import Product from '../components/Product.jsx';
-import { Row, Col, Button } from 'antd';
+import { Row, Col } from 'antd';
 import { GET_PRODUCTS } from '../utils/queries.js';
 
 function HomePage() {
