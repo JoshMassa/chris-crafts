@@ -1,7 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import Product from '../components/Product.jsx';
-import { Row, Col } from 'antd';
+import { Row, Col, Button } from 'antd';
 import { GET_PRODUCTS } from '../utils/queries.js';
 
 function HomePage() {
@@ -24,7 +24,7 @@ function HomePage() {
                             image={product.image}
                             price={product.price}
                             description={product.description}
-                        />
+                            />
                     </Col>
                 ))}
             </Row>
