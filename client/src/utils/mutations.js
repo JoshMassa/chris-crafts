@@ -13,6 +13,19 @@ export const ADD_EVENT = gql`
   }
 `;
 
+export const ADD_ITEM_TO_CART = gql`
+  mutation AddItemToCart($userId: ID!, $productId: ID!, $quantity: Int!) {
+    addItemToCart(userId: $userId, productId: $productId, quantity: $quantity) {
+      _id
+      userId
+      items {
+        productId
+        quantity
+      }
+    }
+  }
+`;
+
 export const ADD_PRODUCT = gql`
   mutation addProduct($title: String!, $image: String!, $price: Float!, $description: String!) {
     addProduct(title: $title, image: $image, price: $price, description: $description) {
@@ -43,6 +56,17 @@ export const LOGOUT = gql`
     logout {
       _id
       username
+    }
+  }
+`;
+
+export const REMOVE_ITEM_FROM_CART = gql`
+  mutation RemoveItemFromCart($userId: ID!, $productId: ID!) {
+    removeItemFromCart(userId: $userId, productId: $productId) {
+      items {
+        productId
+        quantity
+      }
     }
   }
 `;

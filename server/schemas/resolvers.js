@@ -1,3 +1,4 @@
+import Cart from '../models/Cart.js';
 import User from '../models/User.js';
 import Event from '../models/Event.js';
 import Product from '../models/Product.js';
@@ -9,6 +10,23 @@ const resolvers = {
     Query: {
         events: async () => {
             return await Event.find({});
+        },
+        getCart: async (_, { userId }) => {
+            const cart = await Cart.findOne({ userId })
+                .populate('items.productId');
+            return {
+                id: cart._id,
+                items: cart.items.map(item => ({
+                    product: {
+                        id: item.productId._id,
+                        title: item.productId.title,
+                        image: item.productId.image,
+                        price: item.productId.price,
+                        description: item.productId.description,
+                    },
+                    quantity: item.quantity,
+                })),
+            };
         },
         products: async () => {
             return await Product.find({});
@@ -52,6 +70,30 @@ const resolvers = {
             const newEvent = new Event({ title, date, location, time, description });
             await newEvent.save();
             return newEvent;
+        },
+        addItemToCart: async (_, { userId, productId, quantity }) => {
+            let cart = await Cart.findOne({ userId });
+            if (!cart) {
+                cart = new Cart({ userId, items: [] });
+            }
+
+            const itemIndex = cart.items.findIndex(item => item.productId.equals(productId));
+            if (itemIndex > -1) {
+                cart.items[itemIndex].quantity += quantity;
+            } else {
+                cart.items.push({ productId, quantity });
+            }
+
+            await cart.save();
+            return cart;
+        },
+        removeItemFromCart: async (_, { userId, productId }) => {
+            let cart = await Cart.findOne({ userId });
+            if (cart) {
+                cart.items = cart.items.filter(item => !item.productId.equals(productId));
+                await cart.save
+            }
+            return cart;
         },
         addProduct: async (_, { title, image, price, description }) => {
             try {

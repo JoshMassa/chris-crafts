@@ -19,7 +19,9 @@ function HomePage() {
             <Row gutter={[16, 16]}>
                 {products.map((product, index) => (
                     <Col key={index} xs={24} sm={12} md={8}>
-                        <Product 
+                        <Product
+                            key={product.id}
+                            id={product.id}
                             title={product.title}
                             image={product.image}
                             price={product.price}

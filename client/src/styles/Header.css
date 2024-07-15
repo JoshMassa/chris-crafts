@@ -10,3 +10,23 @@
     height: 120px !important;
     line-height: 3 !important;
 }
+
+.ant-menu-item {
+    position: relative;
+}
+
+.item-count {
+    position: absolute;
+    top: 7px;
+    right: -1px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: bold;
+    height: 15px;
+    width: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

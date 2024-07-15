@@ -1,6 +1,22 @@
 import { gql } from 'graphql-tag';
 
 const typeDefs = gql`
+type CartItem {
+    productId: ID!
+    quantity: Int!
+}
+
+type Cart {
+    _id: ID!
+    userId: ID!
+    items: [CartItem!]!
+}
+
+type CartItem {
+    product: Product!
+    quantity: Int!
+}
+
 type Event {
     id: ID!
     title: String!
@@ -49,6 +65,7 @@ type Query {
     products: [Product]
     user(id: ID!): User
     users: [User]
+    getCart(userId: ID!): Cart
 }
 
 type Mutation {
@@ -59,6 +76,8 @@ type Mutation {
     signup(username: String!, email: String!, password: String!): Auth!
     updateUser(id: ID!, input: UserUpdateInput!): User
     setAdminStatus(id: ID!, isAdmin: Boolean!): User
+    addItemToCart(userId: ID!, productId: ID!, quantity: Int!): Cart
+    removeItemFromCart(userId: ID!, productId: ID!): Cart
 }
 `
 

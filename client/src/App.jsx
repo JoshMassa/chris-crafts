@@ -5,6 +5,7 @@ import Auth from './utils/auth';
 import { setContext } from '@apollo/client/link/context';
 import Header from './components/Header';
 import Events from './components/Events';
+import { CartProvider } from './context/CartContext';
 
 const httpLink = createHttpLink({
   uri: import.meta.env.MODE === 'development'
@@ -22,7 +23,7 @@ const authLink = setContext((_, { headers }) => {
   };
 });
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
   credentials: 'include',
@@ -33,15 +34,17 @@ const { Content } = Layout;
 function App() {
   return (
     <ApolloProvider client={client}>
-      <Header />
-      <Layout style={{ minHeight: '100vh' }}>
-        <Events />
-        <Layout>
-          <Content>
-            <Outlet />
-          </Content>
+      <CartProvider>
+        <Header />
+        <Layout style={{ minHeight: '100vh' }}>
+          <Events />
+          <Layout>
+            <Content>
+              <Outlet />
+            </Content>
+          </Layout>
         </Layout>
-      </Layout>
+      </CartProvider>
     </ApolloProvider>
   );
 }

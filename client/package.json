@@ -11,6 +11,7 @@
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
     "@apollo/client": "^3.10.6",
+    "@paypal/paypal-js": "^8.1.0",
     "antd": "^5.18.3",
     "dayjs": "^1.11.11",
     "graphql": "^16.9.0",
