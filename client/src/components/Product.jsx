@@ -1,28 +1,15 @@
 import React, { useState } from 'react';
 import { Card, Button, message } from 'antd';
-import { ADD_ITEM_TO_CART } from '../utils/mutations.js';
 import { useCart } from '../context/CartContext.jsx';
 import { useAuth } from '../context/AuthContext.jsx';
 import '../styles/Product.css';
-import { useMutation } from '@apollo/client';
 
 function Product({ id, title, image, price, description, showAddToCartButton = true }) {
-    const { addToCart } = useCart();
+    const { addToCart, cart } = useCart();
     const [isAdded, setIsAdded] = useState(false);
     const { user, isLoggedIn } = useAuth();
 
-    const [addItemToCart] = useMutation(ADD_ITEM_TO_CART, {
-        onCompleted: (data) => {
-            message.success('Item successfully added to the cart!');
-            setIsAdded(true);
-            console.log('Cart updated:', data.addItemToCart);
-        },
-        onError: (error) => {
-            console.error('Failed to add item to the cart:', error.message)
-        }
-    });
-
-    const handleAddToCart = () => {
+    const handleAddToCart = async () => {
         if (!user) {
             message.error('You need to be logged in to add items to your cart!');
             return;
@@ -31,13 +18,14 @@ function Product({ id, title, image, price, description, showAddToCartButton = t
         const product = { productId: id, title, image, price, description };
         console.log('Product to be added:', product);
 
-        addItemToCart({
-            variables: {
-                userId: user._id,
-                productId: id,
-                quantity: 1,
-            }
-        });
+        try {
+            await addToCart(product);
+            setIsAdded(true);
+            message.success('Item successfully added to the cart!');
+        } catch (error) {
+            console.error('Failed to add item to the cart:', error.message);
+            message.error('Failed to add item to the cart!');
+        }
     };
 
     return (

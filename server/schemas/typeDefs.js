@@ -60,7 +60,7 @@ type Query {
     products: [Product]
     user(id: ID!): User
     users: [User]
-    getCart(userId: ID): Cart
+    getCart(userId: ID!): Cart
     cartItems: [CartItem]!
     cart(id: ID!): Cart
 }
