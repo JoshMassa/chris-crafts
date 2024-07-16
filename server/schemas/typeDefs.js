@@ -2,19 +2,14 @@ import { gql } from 'graphql-tag';
 
 const typeDefs = gql`
 type CartItem {
-    productId: ID!
+    product: Product!
     quantity: Int!
 }
 
 type Cart {
     _id: ID!
     userId: ID!
-    items: [CartItem!]!
-}
-
-type CartItem {
-    product: Product!
-    quantity: Int!
+    items: [CartItem]!
 }
 
 type Event {
@@ -65,7 +60,9 @@ type Query {
     products: [Product]
     user(id: ID!): User
     users: [User]
-    getCart(userId: ID!): Cart
+    getCart(userId: ID): Cart
+    cartItems: [CartItem]!
+    cart(id: ID!): Cart
 }
 
 type Mutation {

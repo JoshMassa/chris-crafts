@@ -17,6 +17,10 @@ const productSchema = new Schema({
         type: String,
         required: true,
     }
+}, { toJSON: { virtuals: true }, toObject: { virtuals: true } });
+
+productSchema.virtual('id').get(function() {
+    return this._id.toHexString();
 });
 
 const Product = model('Product', productSchema);

@@ -5,9 +5,11 @@ import emptyCartImage from '../assets/images/empty-cart.jpg';
 import '../styles/Cart.css';
 
 function Cart() {
-    const { cart } = useCart();
+    const { cart, loading, error } = useCart();
+    console.log('Cart', cart)
 
-    console.log('Cart:', cart);
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error.message}</p>;
 
     return (
         <div className="cart-container" style={{ textAlign: 'center', marginTop: '4rem', fontSize: '20px' }}>

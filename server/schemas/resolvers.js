@@ -8,25 +8,28 @@ import auth from '../utils/auth.js';
 
 const resolvers = {
     Query: {
+        cartItems: async () => {
+            return await CartItem.find();
+        },
         events: async () => {
             return await Event.find({});
         },
         getCart: async (_, { userId }) => {
-            const cart = await Cart.findOne({ userId })
-                .populate('items.productId');
-            return {
-                id: cart._id,
-                items: cart.items.map(item => ({
-                    product: {
-                        id: item.productId._id,
-                        title: item.productId.title,
-                        image: item.productId.image,
-                        price: item.productId.price,
-                        description: item.productId.description,
-                    },
-                    quantity: item.quantity,
-                })),
-            };
+            try {
+                const cart = await Cart.findOne({ userId }).exec();
+                if (!cart) {
+                    return {
+                        id: null,
+                        userId,
+                        items: [],
+                    };
+                }
+                
+                return cart;
+            } catch (error) {
+                console.error('Error fetching cart:', error);
+                throw new Error('Failed to fetch cart');
+            }
         },
         products: async () => {
             return await Product.find({});
@@ -72,25 +75,69 @@ const resolvers = {
             return newEvent;
         },
         addItemToCart: async (_, { userId, productId, quantity }) => {
-            let cart = await Cart.findOne({ userId });
-            if (!cart) {
-                cart = new Cart({ userId, items: [] });
-            }
+            console.log(`Attempting to add item ${productId} to cart for user ${userId}`);
+            try {
+                // Find the product by ID
+                const product = await Product.findById(productId).exec();
+                console.log(`Found product:`, product);
+                if (!product) {
+                    throw new Error('No product found with that ID');
+                }
+                // Find or create a cart for the user
+                let cart = await Cart.findOne({ userId }).exec();
+                console.log(`Found cart:`, cart);
+                if (!cart) {
+                    cart = new Cart({ userId, items: [] });
+                }
 
-            const itemIndex = cart.items.findIndex(item => item.productId.equals(productId));
-            if (itemIndex > -1) {
-                cart.items[itemIndex].quantity += quantity;
-            } else {
-                cart.items.push({ productId, quantity });
-            }
+                // Check if the item already exists in the cart
+                const existingItemIndex = cart.items.findIndex(item => item.product.id === productId);
+                console.log(`Existing item index:`, existingItemIndex);
 
-            await cart.save();
-            return cart;
+                if (existingItemIndex !== -1) {
+                    // Update quantity if item already exists
+                    cart.items[existingItemIndex].quantity += quantity;
+                } else {
+                    // Add new item to the cart
+                    cart.items.push({
+                        product: {
+                            _id: product._id,
+                            id: product.id,
+                            title: product.title,
+                            image: product.image,
+                            price: product.price,
+                            description: product.description,
+                        },
+                        quantity,
+                    });
+                }
+
+                // Save the cart
+                await cart.save();
+                console.log('Cart after population:', cart);
+
+                return cart;
+            } catch (error) {
+                // Log detailed error information
+                console.error(`Error adding item ${productId} to the cart for user ${userId}:`, error);
+                
+                // Throw a specific error message based on different conditions
+                if (error.message === 'No product found with that ID') {
+                    throw new Error('Failed to add item to the cart: Product not found');
+                } else if (error.name === 'ValidationError') {
+                    // Handle Mongoose validation errors
+                    const validationErrors = Object.values(error.errors).map(err => err.message);
+                    throw new Error(`Failed to add item to the cart: Validation errors - ${validationErrors.join(', ')}`);
+                } else {
+                    // Handle other unexpected errors
+                    throw new Error('Failed to add item to the cart: Unexpected error occurred');
+                }
+            }
         },
         removeItemFromCart: async (_, { userId, productId }) => {
             let cart = await Cart.findOne({ userId });
             if (cart) {
-                cart.items = cart.items.filter(item => !item.productId.equals(productId));
+                cart.items = cart.items.filter(item => !item.product.id === productId);
                 await cart.save
             }
             return cart;

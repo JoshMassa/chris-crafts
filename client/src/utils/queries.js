@@ -1,10 +1,13 @@
 import { gql } from '@apollo/client';
 
 export const GET_CART = gql`
-  query GetCart($userId: ID!) {
+  query GetCart($userId: ID) {
     getCart(userId: $userId) {
+      _id
+      userId
       items {
         product {
+          id
           title
           image
           price
@@ -14,6 +17,16 @@ export const GET_CART = gql`
       }
     }
   } 
+`;
+
+export const GET_CART_ITEMS = gql`
+  query GetCartItems {
+    cartItems {
+      id
+      quantity
+      product
+    }
+  }
 `;
 
 export const GET_EVENTS = gql`

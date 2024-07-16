@@ -19,7 +19,13 @@ export const ADD_ITEM_TO_CART = gql`
       _id
       userId
       items {
-        productId
+        product {
+          id
+          title
+          image
+          price
+          description
+        }
         quantity
       }
     }
@@ -63,6 +69,8 @@ export const LOGOUT = gql`
 export const REMOVE_ITEM_FROM_CART = gql`
   mutation RemoveItemFromCart($userId: ID!, $productId: ID!) {
     removeItemFromCart(userId: $userId, productId: $productId) {
+      _id
+      userId
       items {
         productId
         quantity

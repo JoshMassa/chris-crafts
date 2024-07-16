@@ -39,10 +39,13 @@ export function CartProvider({ children }) {
                     quantity: 1,
                 },
             });
-
+            
             if (data && data.addItemToCart) {
                 setCart(data.addItemToCart.items);
             }
+            
+            console.log('Product', product)
+
         } catch (error) {
             console.error('Error adding item to cart:', error.message);
         }
@@ -65,10 +68,6 @@ export function CartProvider({ children }) {
             console.error('Error removing item from the cart:', error.message);
         }
     };
-
-
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error.message}</p>;
 
     return (
         <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
