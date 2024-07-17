@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useQuery, useMutation } from '@apollo/client';
+import { useQuery, useMutation, useApolloClient } from '@apollo/client';
 import { GET_CART } from '../utils/queries.js';
 import { ADD_ITEM_TO_CART, REMOVE_ITEM_FROM_CART } from '../utils/mutations.js';
 import { useAuth } from './AuthContext.jsx';
@@ -11,7 +11,7 @@ export function CartProvider({ children }) {
     const [cart, setCart] = useState([]);
     const userId = isLoggedIn ? user._id : null;
 
-    const { data, loading, error } = useQuery(GET_CART, {
+    const { data, refetch } = useQuery(GET_CART, {
         variables: { userId },
         skip: !isLoggedIn,
         onCompleted: (data) => {
@@ -22,10 +22,12 @@ export function CartProvider({ children }) {
         });
 
     useEffect(() => {
-        if (data && data.getCart) {
-            setCart(data.getCart.items);
+        if (isLoggedIn) {
+            refetch();
+        } else {
+            setCart([]);
         }
-    }, [data]);
+    }, [isLoggedIn, refetch]);
 
     const [addItemToCart] = useMutation(ADD_ITEM_TO_CART);
     const [removeItemFromCart] = useMutation(REMOVE_ITEM_FROM_CART);

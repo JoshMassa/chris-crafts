@@ -2,7 +2,6 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App.jsx'
 import { AuthProvider } from './context/AuthContext.jsx';
-import { CartProvider } from './context/CartContext.jsx';
 import HomePage from './pages/HomePage.jsx';
 import Login from './pages/Login.jsx';
 import Signup from './pages/Signup.jsx';
