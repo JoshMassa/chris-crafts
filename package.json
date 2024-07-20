@@ -8,8 +8,7 @@
     "develop": "concurrently \"cd server && npm run start\" \"cd client && npm run dev\"",
     "install": "cd server && npm i && cd ../client && npm i",
     "build": "cd client && npm run build",
-    "render-build": "npm install && npm run build",
-    "preview": "vite preview"
+    "render-build": "npm install && npm run build"
   },
   "keywords": [],
   "author": "",
