@@ -1,36 +1,36 @@
-import React, { useState } from 'react';
-import { Form, Input, Button, message } from 'antd';
-import { validateEmail } from '../../../server/utils/helpers';
+import React, { useState } from "react";
+import { Form, Input, Button, message } from "antd";
+import { validateEmail } from "../../../server/utils/helpers";
 
 function Contact() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [messageText, setMessageText] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [messageText, setMessageText] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [form] = Form.useForm();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
-    if (name === 'name') {
+    if (name === "name") {
       setName(value);
-    } else if (name === 'email') {
+    } else if (name === "email") {
       setEmail(value);
-    } else if (name === 'phone') {
-        setPhone(value);
-    } else if (name === 'message') {
+    } else if (name === "phone") {
+      setPhone(value);
+    } else if (name === "message") {
       setMessageText(value);
     }
 
     if (errorMessage.toLowerCase().includes(name.toLowerCase())) {
-      setErrorMessage('');
+      setErrorMessage("");
     }
   };
 
   const handleFormSubmit = () => {
-    message.success('Form submitted successfully!');
+    message.success("Form submitted successfully!");
 
     // Timeout to clear the success message from the form after 5 seconds
     setTimeout(() => {
@@ -38,36 +38,64 @@ function Contact() {
     }, 5000);
 
     // If the form submission was successful, reset the fields to an empty string
-    setName('');
-    setEmail('');
-    setPhone('');
-    setMessageText('');
-    setErrorMessage('');
+    setName("");
+    setEmail("");
+    setPhone("");
+    setMessageText("");
+    setErrorMessage("");
     form.resetFields();
   };
 
   const handleFormSubmitFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
 
   const handleInputBlur = (event) => {
     const { name, value } = event.target;
 
     if (!value.trim()) {
-      setErrorMessage(`${name.charAt(0).toUpperCase() + name.slice(1)} field is required.`);
-    } else if (name === 'email' && !validateEmail(value)) {
-      setErrorMessage('Email is not in the correct format.');
+      setErrorMessage(
+        `${name.charAt(0).toUpperCase() + name.slice(1)} field is required.`
+      );
+    } else if (name === "email" && !validateEmail(value)) {
+      setErrorMessage("Email is not in the correct format.");
     } else {
-      setErrorMessage('');
+      setErrorMessage("");
     }
   };
 
   return (
-    <div style={{ maxWidth: '700px', height: '650px', margin: '0 auto', backgroundColor: '#5B85AA', borderRadius: '10px' }}>
-      <div style={{ maxWidth: '600px', margin: '0 auto', marginTop: '6rem' }}>
-        <h1 style={{ textAlign: 'center', marginBottom: 20, paddingTop: 20 }}>Contact Me</h1>
-        <p style={{ textAlign: 'center', marginBottom: 20 }}>
-          Please leave your name, email, phone number (optional), and a message detailing the custom leatherwork you're looking for. I will get back to you with more information as soon as possible!
+    <div
+      style={{
+        maxWidth: "700px",
+        height: "650px",
+        margin: "0 auto",
+        backgroundColor: "#5B85AA",
+        borderRadius: "10px",
+      }}
+    >
+      <div style={{ maxWidth: "600px", margin: "0 auto", marginTop: "6rem" }}>
+        <h1
+          style={{
+            textAlign: "center",
+            marginBottom: 20,
+            paddingTop: 20,
+            color: "white",
+          }}
+        >
+          Contact Me
+        </h1>
+        <p
+          style={{
+            textAlign: "center",
+            marginBottom: 20,
+            color: "white",
+            fontWeight: "600",
+          }}
+        >
+          Please leave your name, email, phone number (optional), and a message
+          detailing the custom leatherwork you're looking for. I will get back
+          to you with more information as soon as possible!
         </p>
         <Form
           form={form}
@@ -76,9 +104,9 @@ function Contact() {
           onFinishFailed={handleFormSubmitFailed}
         >
           <Form.Item
-            label="Name"
+            label={<span style={{ color: "white" }}>Name</span>}
             name="name"
-            rules={[{ required: true, message: 'Name field is required.' }]}
+            rules={[{ required: true, message: "Name field is required." }]}
           >
             <Input
               name="name"
@@ -88,11 +116,11 @@ function Contact() {
             />
           </Form.Item>
           <Form.Item
-            label="Email"
+            label={<span style={{ color: "white" }}>Email</span>}
             name="email"
             rules={[
-              { required: true, message: 'Email field is required.' },
-              { type: 'email', message: 'Email is not in the correct format.' },
+              { required: true, message: "Email field is required." },
+              { type: "email", message: "Email is not in the correct format." },
             ]}
           >
             <Input
@@ -103,7 +131,11 @@ function Contact() {
             />
           </Form.Item>
           <Form.Item
-            label="Phone (optional - for texting preferred)"
+            label={
+              <span style={{ color: "white" }}>
+                Phone (optional - for texting preferred)
+              </span>
+            }
             name="phone"
             rules={[{ required: false }]}
           >
@@ -115,9 +147,9 @@ function Contact() {
             />
           </Form.Item>
           <Form.Item
-            label="Message"
+            label={<span style={{ color: "white" }}>Message</span>}
             name="message"
-            rules={[{ required: true, message: 'Message field is required.' }]}
+            rules={[{ required: true, message: "Message field is required." }]}
           >
             <Input.TextArea
               name="message"
@@ -127,15 +159,19 @@ function Contact() {
               rows={5}
             />
           </Form.Item>
-          <Form.Item style={{ textAlign: 'center' }}>
-            <Button type="primary" htmlType="submit" style={{ width: 200, height: 50, backgroundColor: '#2B4162'}}>
+          <Form.Item style={{ textAlign: "center" }}>
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{ width: 200, height: 50, backgroundColor: "#2B4162" }}
+            >
               Submit
             </Button>
           </Form.Item>
         </Form>
         {errorMessage && (
           <div>
-            <p className='error-text'>{errorMessage}</p>
+            <p className="error-text">{errorMessage}</p>
           </div>
         )}
       </div>
