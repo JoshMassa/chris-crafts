@@ -1,22 +1,17 @@
 main {
-    background-color: rgb(248, 248, 248);
-}
-
-.cart-items {
-    display: flex;
-    justify-content: center;
+  background-color: rgb(248, 248, 248);
 }
 
 .cart-items .product-card {
-    width: 450px;
-    height: 725px;
-    border: 1px solid #ddd;
-    margin-right: 10px;
+  width: 100%;
+  height: 725px;
+  border: 1px solid #ddd;
+  margin-right: 10px;
 }
 
 .cart-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }

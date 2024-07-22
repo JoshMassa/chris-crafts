@@ -1,0 +1,8 @@
+select {
+  padding: 10px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  width: 100%;
+  text-align: center;
+  color: rgb(71, 71, 71);
+}

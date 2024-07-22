@@ -1,0 +1,11 @@
+.react-select__indicator-container {
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  text-align: center;
+  color: rgb(71, 71, 71);
+}
+
+.react-select__indicator-separator {
+  display: none;
+}
