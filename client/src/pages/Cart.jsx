@@ -128,6 +128,7 @@ function Cart() {
           </Form.Item>
         </Form>
       </Card>
+
       <h2 style={{ marginBottom: "1rem" }}>Your Cart</h2>
       {cart.length === 0 ? (
         <div>
@@ -148,17 +149,21 @@ function Cart() {
             gap: "20px",
           }}
         >
-          {cart.map((item, index) => (
-            <Product
-              key={index}
-              title={item.product.title}
-              image={item.product.image}
-              price={item.product.price}
-              description={item.product.description}
-              quantity={item.quantity}
-              showAddToCartButton={false}
-            />
-          ))}
+          <Row gutter={[16, 16]}>
+            {cart.map((item, index) => (
+              <Col xs={24} sm={12} md={8}>
+                <Product
+                  key={index}
+                  title={item.product.title}
+                  image={item.product.image}
+                  price={item.product.price}
+                  description={item.product.description}
+                  quantity={item.quantity}
+                  showAddToCartButton={false}
+                />
+              </Col>
+            ))}
+          </Row>
           <div
             className="checkout-container"
             style={{
@@ -167,6 +172,7 @@ function Cart() {
               maxHeight: "300px",
               padding: "30px",
               borderRadius: "10px",
+              marginBottom: "20px",
             }}
           >
             <div
