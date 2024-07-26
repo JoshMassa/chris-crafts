@@ -70,8 +70,9 @@ function Contact() {
         maxWidth: "700px",
         height: "650px",
         margin: "0 auto",
-        backgroundColor: "#5B85AA",
+        backgroundColor: "#19647E",
         borderRadius: "10px",
+        boxShadow: "0px 0px 15px 8px #888888",
       }}
     >
       <div style={{ maxWidth: "600px", margin: "0 auto", marginTop: "6rem" }}>
@@ -133,7 +134,7 @@ function Contact() {
           <Form.Item
             label={
               <span style={{ color: "white" }}>
-                Phone (optional - for texting preferred)
+                Phone (optional - texting preferred)
               </span>
             }
             name="phone"
@@ -163,7 +164,12 @@ function Contact() {
             <Button
               type="primary"
               htmlType="submit"
-              style={{ width: 200, height: 50, backgroundColor: "#2B4162" }}
+              className="contact-submit-button"
+              style={{
+                width: 200,
+                height: 50,
+                backgroundColor: "#3F4045",
+              }}
             >
               Submit
             </Button>
