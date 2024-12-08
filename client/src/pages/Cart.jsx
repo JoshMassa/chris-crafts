@@ -43,7 +43,10 @@ function Cart() {
       className="cart-container"
       style={{ textAlign: "center", marginTop: "2rem", fontSize: "20px" }}
     >
-      <Card style={{ marginBottom: "20px" }} title="Shipping Address">
+      <Card
+        style={{ marginBottom: "20px", border: "1px solid black" }}
+        title="Shipping Address"
+      >
         <Form
           name="shipping"
           onFinish={onFinish}
@@ -173,6 +176,7 @@ function Cart() {
               padding: "30px",
               borderRadius: "10px",
               marginBottom: "20px",
+              border: "1px solid black",
             }}
           >
             <div
